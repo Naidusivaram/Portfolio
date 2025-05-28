@@ -1,87 +1,96 @@
+<<<<<<< HEAD
+function toggleMenu(){
+   const menu=document.querySelector(".menu-links");
+   const icon=document.querySelector(".hamberger-icon");
+    menu.classList.toggle("open");
+    icon.classList.toggle("open");
+}
+=======
 //jshint esversion:6
 
 const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const _ = require("lodash");
-const mongoose=require("mongoose");
+const mongoose = require("mongoose");
 
 const homeStartingContent = "This is a personal BLOG site.You can post new posts just by visiting '/compose' page.Click on 'Read More' to visit that specific Post. ";
 const aboutContent = "Hi , This is Siva Rama Krishna personal blog.\nBut you can contribute for his blog too.\nAppend the url with '/compose' to visit compose page and add your stuff.";
-const contactContent = "Naid Siva Rama Krishna".         Instagram:@mr_naidu.         Email-address:naidusiva940@gmail.com";
+const contactContent = "Naid Siva Rama Krishna".Instagram: @mr_naidu.Email - address: naidusiva940 @gmail.com ";
 
 const app = express();
 
 app.set('view engine', 'ejs');
 
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 main().catch(err => console.log(err));
-async function main(){
-  await mongoose.connect("mongodb+srv://saiteja:saiteja@cluster0.u1uz09s.mongodb.net/blog");
+async function main() {
+    await mongoose.connect("mongodb+srv://saiteja:saiteja@cluster0.u1uz09s.mongodb.net/blog");
 }
 
-var postSchema= new mongoose.Schema({
-  title:String,
-  content:String
+var postSchema = new mongoose.Schema({
+    title: String,
+    content: String
 });
 
-var Post = mongoose.model("post",postSchema);
+var Post = mongoose.model("post", postSchema);
 
 
 let posts = [];
 
-app.get("/",async function(req, res){
+app.get("/", async function(req, res) {
 
-  posts=await Post.find({});
- // console.log(posts);
+    posts = await Post.find({});
+    // console.log(posts);
 
-  res.render("home", {
-    startingContent: homeStartingContent,
-    posts: posts
+    res.render("home", {
+        startingContent: homeStartingContent,
+        posts: posts
     });
 });
 
-app.get("/about", function(req, res){
-  res.render("about", {aboutContent: aboutContent});
+app.get("/about", function(req, res) {
+    res.render("about", { aboutContent: aboutContent });
 });
 
-app.get("/contact", function(req, res){
-  res.render("contact", {contactContent: contactContent});
+app.get("/contact", function(req, res) {
+    res.render("contact", { contactContent: contactContent });
 });
 
-app.get("/compose", function(req, res){
-  res.render("compose");
+app.get("/compose", function(req, res) {
+    res.render("compose");
 });
 
-app.post("/compose", function(req, res){
-  const post = new Post ({
-    title: req.body.postTitle,
-    content: req.body.postBody
-  });
+app.post("/compose", function(req, res) {
+    const post = new Post({
+        title: req.body.postTitle,
+        content: req.body.postBody
+    });
 
-  Post.insertMany([post]);
+    Post.insertMany([post]);
 
-  res.redirect("/");
+    res.redirect("/");
 
 });
 
-app.get("/posts/:postId",async function(req, res){
-  const reqPostId=await Post.findById(req.params.postId);
+app.get("/posts/:postId", async function(req, res) {
+    const reqPostId = await Post.findById(req.params.postId);
 
-  
 
-    
-      res.render("post", {
+
+
+    res.render("post", {
         title: reqPostId.title,
         content: reqPostId.content
-      });
-    
-  
+    });
+
+
 
 });
 
 app.listen(process.env.PORT || 3000, function() {
-  console.log("Server started on port 3000");
+    console.log("Server started on port 3000");
 });
+>>>>>>> d597798 (Initial commit for Blog-main)
