@@ -1,2 +1,2 @@
 Personal Portfolio site
-https://saitejareddykariveda.netlify.app/
+https://app.netlify.com/teams/naidu/proje
